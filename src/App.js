@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from "react";
+import Template from "./component/Template";
+import TodoList from "./component/TodoList";
+import TodoInsert from "./component/TodoInsert";
+import TodoFooter from "./component/TodoFooter";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const App = () => {
+  const [insertToggle,setInsertToggle] = useState(false);
+  
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      text: "할일 1",
+      checked: true
+    },
+    {
+      id: 2,
+      text: "할일 2",
+      checked: true
+    },
+    {
+      id: 3,
+      text: "할일 3",
+      checked: true
+    },
+  ]);
+
+  const oninsertToggle = () => {
+    setInsertToggle(prev => !prev);
+  };
+
+  return( 
+  <div>  
+  <Template>
+    <TodoList todos={todos}/>
+    {insertToggle &&<TodoInsert oninsertToggle={oninsertToggle}/>}
+    <button onClick={oninsertToggle}>추가</button>
+  </Template>
+  <TodoFooter/>
+  </div>
   );
-}
+};
 
 export default App;
